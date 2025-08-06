@@ -103,12 +103,15 @@ function addEventListeners() {
 
 // 날짜를 input[type="date"] 형식으로 변환
 function formatDateForInput(date) {
-    return date.toISOString().split('T')[0];
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }
 
 // 날짜를 표시용 형식으로 변환
 function formatDateForDisplay(dateString) {
-    const date = new Date(dateString);
+    const date = new Date(dateString + 'T00:00:00');
     return `${date.getMonth() + 1}월 ${date.getDate()}일`;
 }
 
@@ -132,7 +135,7 @@ function addTodo() {
         text: text,
         date: date,
         completed: false,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toLocaleString('ko-KR')
     };
 
     todos.push(todo);
